@@ -1,69 +1,70 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Array to store quotes
+const quotes = [
+  {
+    text: "Is is hard to fail but it is worse to have never tried to succeed.",
+    category: "Inspirational",
+  },
+  {
+    text: "That which does not kill us makes us stronger.",
+    category: "Inspirational",
+  },
+  {
+    text: "It is hard to fail but it is worse never to have tried to succeed.",
+    category: "Love",
+  },
+  {
+    text: "It is not a lack of love, but a lack of friendship that makes unhappy marriages.",
+    category: "Love",
+  },
+  {
+    text: "Keep your face to the sunshine and you cannot see a shadow",
+    category: "Positive",
+  },
+  {
+    text: "If you look at what you have in life, you’ll always have more",
+    category: "Positive",
+  },
+  {
+    text: "A real friend is one who walks in when the rest of the world walks out",
+    category: "Friendship",
+  },
+  {
+    text: "Ultimately the bond of all companionship, whether in marriage or in friendship, is conversation",
+    category: "Friendship",
+  },
+  {
+    text: "We may have our differences, but nothing’s more important than family",
+    category: "Family",
+  },
+  {
+    text: "Family is a life jacket in the stormy sea of life",
+    category: "Family",
+  },
+];
 
-    const form = document.getElementById('registration-form');
-    const feedbackDiv = document.getElementById('form-feedback');
+quoteButton = document.getElementById("newQuote");
 
+function showRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
 
-    form.addEventListener('submit', function(event) {
+  const quoteContainer = document.getElementById("quoteDisplay");
 
-        event.preventDefault();
+  quoteContainer.innerHTML = `"${quote.text}" - "${quote.category}"`;
+}
 
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+quoteButton.addEventListener("click", showRandomQuote);
 
-        let isValid = true;
-        let message = [];
+function addQuote() {
+  const newQuote = document.getElementById("newQuoteText").value;
+  const newCategory = document.getElementById("newQuoteCategory").value;
 
-        if(username.length < 3){
-            isValid = false;
-            message.push("Username should be at least 3 characters long.");
-
-        }
-
-        if(!email.includes ('@') || ('.')) { 
-            isValid = false;
-            message.push("Email must contain both '@' and '.' characters ");
-        }
-
-        if(password.length < 8) {
-            isValid = false;
-            message.push("Password should be atleast 8 characters long");
-        }
-
-        feedbackDiv.style.display = "block";
-
-        if(isValid) {
-            feedbackDiv.textContent = "Registration successful";
-            feedbackDiv.style.color = "#28a745";
-        }
-
-        else {
-            feedbackDiv.innerHTML = messages.join("<br>");
-            feedbackDiv.style.color ="#dc3545";
-        }
-
-
-
-
-
-
-
-
-
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
+  if (newQuote && newCategory) {
+    quotes.push({ text: newQuote, category: newCategory });
+    document.getElementById("newQuoteText").value = "";
+    document.getElementById("newQuoteCategory").value = "";
+    alert("New Quote Successfully Added!");
+  } else {
+    alert("Please enter both a quote and a category!");
+  }
+}
